@@ -11,9 +11,9 @@ jobs:
         run: |
           mkdir -p reports
           if [ -f index.html ]; then
-            echo "✅ index.html está presente" > reports/index-check.txt
+            echo "[CORRECTO] index.html está presente" > reports/index-check.txt
           else
-            echo "❌ index.html NO está presente" > reports/index-check.txt
+            echo "[INCORRECTO] index.html NO está presente" > reports/index-check.txt
           fi
           cat reports/index-check.txt
       - name: Subir resultado
