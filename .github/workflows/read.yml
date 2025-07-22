@@ -1,9 +1,9 @@
 name: Actualizar resumen de cambios
 
-on: [push] 
+on: [push]
 
 permissions:
-  contents: write  
+  contents: write
 
 jobs:
   update-readme:
@@ -11,9 +11,16 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Agregar resumen de cambios
+      - name: Reemplazar o agregar resumen de cambios en README
         run: |
-          echo "## Última actualización: $(date)" >> README.md
+          fecha="## Última actualización: $(date)"
+          if grep -q "## Última actualización:" README.md; then
+            # Reemplaza la línea existente
+            sed -i "s/## Última actualización:.*/$fecha/" README.md
+          else
+            # Agrega la línea si no existe
+            echo "$fecha" >> README.md
+          fi
 
       - name: Commit y push
         run: |
