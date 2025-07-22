@@ -1,0 +1,12 @@
+name: Verificar tamaño total
+
+on: [push, pull_request]
+
+jobs:
+  check-size:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: |
+          total_size=$(du -sh . | cut -f1)
+          echo "Tamaño total del proyecto: $total_size"
