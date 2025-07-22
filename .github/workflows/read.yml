@@ -1,17 +1,15 @@
 name: Actualizar resumen de cambios
 
-on: [workflow_dispatch]  # Solo se ejecuta manualmente desde GitHub
+on: [push] 
 
 permissions:
-  contents: write  # Permite hacer push
+  contents: write  
 
 jobs:
   update-readme:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-        with:
-          persist-credentials: true
 
       - name: Agregar resumen de cambios
         run: |
@@ -22,5 +20,5 @@ jobs:
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
           git add README.md
-          git commit -m "Actualizar resumen de cambios" || echo "No hay cambios para commitear"
+          git commit -m "Actualizar resumen de cambios" || echo "Sin cambios que guardar"
           git push
