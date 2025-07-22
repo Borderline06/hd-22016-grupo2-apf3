@@ -1,0 +1,23 @@
+name: Verificar despliegue en GitHub Pages
+
+on:
+  workflow_run:
+    workflows: ["Revisar enlaces rotos", "Validar HTML"]
+    types:
+      - completed
+
+jobs:
+  check-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Esperar despliegue y verificar acceso
+        run: |
+          sleep 20
+          mkdir -p reports
+          curl -Is https://borderline06.github.io/hd-22016-grupo2-apf3/ | head -n 10 > reports/deploy-status.txt
+          cat reports/deploy-status.txt
+      - name: Subir estado del despliegue
+        uses: actions/upload-artifact@v4
+        with:
+          name: estado-despliegue
+          path: reports/deploy-status.txt
