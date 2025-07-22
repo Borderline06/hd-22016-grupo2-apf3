@@ -14,7 +14,7 @@ jobs:
           echo "Verificación de etiquetas semánticas:" > "$report"
           for file in *.html; do
             echo "Archivo: $file" >> "$report"
-            grep -Eo '<(main|nav|section|article|footer|header)' "$file" | sort | uniq -c >> "$report" || echo "Sin etiquetas semánticas" >> "$report"
+            grep -Eo '<(main|div|section|article|footer|header)' "$file" | sort | uniq -c >> "$report" || echo "Sin etiquetas semánticas" >> "$report"
             echo "" >> "$report"
           done
           cat "$report"
